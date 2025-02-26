@@ -67,11 +67,19 @@ Você pode iniciar o node package manager para cuidar das dependências sozinho 
 
 ```bash
 npm init -y
+
+npm install typescript --save-dev
+
+npx tsc --init
 ```
+
+Configure o tsconfig.json, dizendo uma pasta para guardar os TS e outra para guardar os JS.
 
 Para compilar e rodar código no live server, use
 
 ```bash
+npm install npm-run-all --save-dev
+
 npm i -s live-server
 ```
 
@@ -79,6 +87,6 @@ Agora, nos scripts, adicione um que chame o live-server, algo como:
 
 ```json
 "scripts": {
-    "start": "live-server"
+    "start": "npm-run-all --parallel live-server tsc-watch"
 }
 ```
