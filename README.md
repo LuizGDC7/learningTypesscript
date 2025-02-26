@@ -90,3 +90,78 @@ Agora, nos scripts, adicione um que chame o live-server, algo como:
     "start": "npm-run-all --parallel live-server tsc-watch"
 }
 ```
+
+## Documentação da linguagem
+
+### Compilação e Erros
+
+O código é compilado, mesmo que com erros de tipagem. Se isso não for desejado, é possível dizer para o compilador
+
+### Variáveis
+
+#### Inferência
+
+Typescript infere o tipo das variáveis se um tipo não for definido. Isso é ruim, pois perde-se a noção do tipo do dado. Por isso é importante definir o tipo da variável.
+
+#### Tipos
+
+```typescript
+
+// Primitivos
+
+let qualquer_tipo ; // any
+let qualquer_tipo2: any;
+
+let idade: number = 27 ; 
+
+let mentira: boolean = false;
+
+let frase:string = "Achado";
+
+// Arrays seguem formato tipo[]
+
+let array_generico: any[] = ["A", 7, true]
+
+let array_string: string[] = ["Olá", "mundo"]
+
+// Tuplas seguem formato [tipo, tipo, ...]
+
+let tupla: [string, number, string] = ["abra", 6, "kadabra"]
+
+// Enum segue o formato enum nome{valor1,  valor2 = valor_especifico, valor3 vale valoe 2 + 1}
+
+enum Cor {
+    amarelo,        // vale 1
+    azul,           // vale 2
+    vermelho = 5,   // vale 5
+    verde,          // vale 6
+    violeta = 3,    // vale 3
+    roxo            // vale 4
+}
+
+// tipo função. É o nome dado para uma variável que armazena funções. Nela especificamos os tipos dos parâmetros e o tipo de retorno permitidos.
+
+let operacaoNumerica: (x: number, y: number) => number;
+
+function multiplicar(a:number, b:number): number {
+    return a * b;
+}
+
+operacaoNumerica = multiplicar // Isso é permitido
+
+
+```
+
+### Funções
+
+Podemos definir uma função como
+
+```typescript
+
+function nome(param1: tipo, param2: tipo): tipo_retorno {
+    corpo
+}
+
+```
+
+
