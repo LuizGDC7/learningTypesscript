@@ -80,15 +80,18 @@ Para compilar e rodar código no live server, use
 ```bash
 npm install npm-run-all --save-dev
 
-npm i -s live-server
+npm install live-server --save-dev
 ```
 
 Agora, nos scripts, adicione um que chame o live-server, algo como:
 
 ```json
 "scripts": {
-    "start": "npm-run-all --parallel live-server tsc-watch"
-}
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm-run-all --parallel live-server tsc-watch",
+    "live-server": "live-server",
+    "tsc-watch": "tsc --watch"
+  }
 ```
 
 ## Documentação da linguagem
@@ -164,4 +167,93 @@ function nome(param1: tipo, param2: tipo): tipo_retorno {
 
 ```
 
+### Objetos
 
+Podemos definir um objeto como
+
+```typescript
+
+let nome: {atributo1:tipo, atributo2:tipo, ...} = {
+    atributo1: valor,
+    atributo2: valor
+}
+
+```
+
+Podemos omitir os tipos, caso desejado.
+
+Exemplo de definição:
+
+```typescript
+
+pessoa: {nome: string, idade:number} = {
+    nome: "Luiz",
+    idade: 21
+}
+
+```
+
+### Types
+
+Permitem criar um tipo novo, incluindo funções dentro desses tipos.
+
+Exemplo:
+
+```typescript
+
+type Functionario = {
+    supervisores: string[],
+    baterPonto: (horas:number) => string
+}
+
+// Agora temos um novo tipo, o tipo funcionário
+
+```
+
+Podemos atribuir vários tipos (primitivos ou personalizados) para variáveis, para isso, usamos union type:
+
+```typescript
+
+let Maria: null | Functionario
+
+// Maria pode ser do tipo null OU do tipo funcionário
+
+```
+
+### O compilador TSconfig.json
+
+#### noEmitOnError
+
+Se true, impede que o arquivo seja compilado se erros forem detectados.
+
+#### target
+
+ Qual o EcmaScript desejado. Garante que a compilação possui compatibilidade com os navegadores.
+
+#### sourceMap 
+
+Se true, te permite depurar o código original, fazendo um mapeamento entre o código compilado final e o original em TS.
+
+#### noImplicitdAny
+
+Se true, obriga a dar o tipo any de forma explícita para as variáveis que não recebem algum valor.
+
+#### strictNullChecks
+
+Se true, checa valores nulos que uma função pode retornar
+
+#### noUsedParameters e noUsedLocals
+
+Se true, checa se algum parâmetro não foi usado em uma função.
+
+#### outDir
+
+Te permite definir a pasta dos arquivos gerados pelo compilador.
+
+#### outFile
+
+Te permite definir um ARQUIVO de saída gerado após toda a compilação
+
+#### rootDir
+
+Te permite definir a pasta onde os arquivos TS se encontram
