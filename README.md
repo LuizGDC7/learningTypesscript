@@ -404,12 +404,69 @@ São uma forma antiga de organização de código. Eles permitem proteger o nome
 
 ```typescript
 
-namespace MeuNampescace{
+namespace MeuNamespace{
     const PI:number = 3.141517
 }
 
-console.log(MeuNampescace.PI)
+console.log(MeuNamespace.PI)
 
 ```
 
 ### Módulos
+
+São a forma atual de separação de código em arquivos. Funciona assim:
+
+Em um arquivo ts, você vai adicionar export nas variáveis, funções, classes, etc que você quer usar em outro módulo:
+
+#### uso
+
+```typescript
+
+// suponha que o arquivo seja math.ts
+
+export function somar(a:number, b:number): number{
+    return a + b;
+}
+
+```
+
+Agora, no outro arquivo, você vai colocar entre {} o que você deseja importar do arquivo original:
+
+```typescript
+    import {somar} from "./math"
+
+    console.log(somar(10, 20));
+```
+
+#### Adendos
+
+O browser não reconhece nativamente as palavras import e export, então ele não reconhece módulos. Para contornar isso, vai depender de qual webpack a empresa for usar. Para esse repositório vou usar SystemJS.
+
+##### Instalação
+
+```typescript
+npm i -s systemjs@0.21.5
+```
+
+##### uso
+
+Dentro do index.html, inclua:
+
+```html
+
+<script>
+    SystemJS.config({
+        baseUrl: "/pasta_raiz", // a pasta raiz dos módulos
+        packages: {
+            '/pasta_raiz':{
+                defaultJSExtension: true
+            }
+        }
+    })
+
+    SystemJS.import('./pasta_raiz/arquivo1.js')
+
+<script>
+
+
+```
