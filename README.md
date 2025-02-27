@@ -316,3 +316,100 @@ Te permite definir um ARQUIVO de saída gerado após toda a compilação
 #### rootDir
 
 Te permite definir a pasta onde os arquivos TS se encontram
+
+### Orientação a Objetos
+
+#### Classes
+
+##### Atributos / modificadores de acesso
+
+Um dos objetivos de se usar modificadores de acesso como public, protected ou private é garantir que o acesso a informação seja seguro. Isso não é o objetivo de JavaScript e nem Typescript. É possível burlar com alguma facilidade o acesso a propriedades private, e mesmo em Javascript com o modificador private #, é possível burlar, mesmo que mais dificilmente.
+
+O objetivo dos modificadores de acesso nessas linguagens é a de tipagem, garantir manutenabilidade, garantir que os devs se atentem ao que estão programando e manter a corretude do código. A segurança em backend deve ser feita usando linguagens mais seguras, como Java.
+
+```typescript
+
+private _a: tipo // Só pode ser acessada dentro da classe. É convenção dar o nome de um atributo privado usando _ na frente.
+
+protected b:tipo // Só pode ser acessada na classe, é transmitida aos filhos
+
+public c:tipo // Pode ser acessada fora da classe
+
+```
+
+##### Constructor
+
+Typescript e Javascript NÃO Possuem sobrecarga de operadores e de funções. Então o construtor de uma classe é literalmente chamado de constructor.
+
+Podemos usar eles para enxugar a definição das propriedades, exemplo:
+
+```typescript
+
+class Comida {
+
+    constructor(private nome:string, private data:Date); // Automaticamente gera os atributos privados nome e data.
+
+}
+
+```
+
+##### Métodos
+
+O mesmo de sempre, se quiser que um método seja herdado aos filhos, use protected.
+
+##### Herança
+
+usamos a keyword extends, como usualmente.
+
+##### Getters and Setters
+
+Lembre-se: segurança não é o foco de JS e TS. Então só vamos usar getters and setters quando realmente necessário. O esquema é o mesmo de outras linguagens:
+
+```typescript
+
+class Comida{
+    constructor(private _name:string, public validade:Data);
+
+    get name(): string{
+        return this._name;
+    }
+
+    set name(valor:string):void {
+        this._name = valor
+    }
+}
+
+// Usando os getters and setters:
+
+let lasanha = new Comida("Lasanha", "2025-02-01");
+lasanha.name = "Tortilha"
+console.log(lasanha.name) // Perceba que executamos os métodos como se fossem atributos públicos, por isso a convenção de nome começar por _
+
+lasanha.validade = "2020-03-05" // validade é público, não precisamos de getters and setters
+
+
+```
+
+##### Atributos e métodos estáticos
+
+Basta acrescentar static ao atributo e método desejado.
+
+##### Classe abstrata
+
+O mesmo de sempre. Você pode ter uma classe com métodos que serão reutilizados ou simplesmente definidos nos filhos. Basta usar abstract na definição da classe e dos métodos.
+
+### Namespaces
+
+São uma forma antiga de organização de código. Eles permitem proteger o nome das variáveis e métodos. Na prática, eles funcionam como variáveis globais.
+
+```typescript
+
+namespace MeuNampescace{
+    const PI:number = 3.141517
+}
+
+console.log(MeuNampescace.PI)
+
+```
+
+### Módulos
