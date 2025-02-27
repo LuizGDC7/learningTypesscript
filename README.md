@@ -100,6 +100,36 @@ Agora, nos scripts, adicione um que chame o live-server, algo como:
 
 O código é compilado, mesmo que com erros de tipagem. Se isso não for desejado, é possível dizer para o compilador
 
+### Operadores
+
+#### Rest e Spread
+
+O uso depende do contexto. Ele te permite agrupar valores em um array, ou desagrupar um array em valores. Por exemplo:
+
+```typescript
+
+// Spread
+
+let valores: number[] = [1, 2, 3]
+
+let funcao = (p1:number, p2:number, p3:number) => p1 + p2 + p3
+
+funcao(...valores) // vai retornar 6
+
+```
+
+```typescript
+
+/// Rest
+
+let funcao = (...valores: number[]) => valores
+
+funcao(1, 2, 3, 4) // retorna [1, 2, 3, 4]
+
+
+
+```
+
 ### Variáveis
 
 #### Inferência
@@ -157,6 +187,8 @@ operacaoNumerica = multiplicar // Isso é permitido
 
 ### Funções
 
+#### Triviais
+
 Podemos definir uma função como
 
 ```typescript
@@ -166,6 +198,33 @@ function nome(param1: tipo, param2: tipo): tipo_retorno {
 }
 
 ```
+
+#### Arrow Function
+
+Possui dois objetivos principais: sintaxe reduzida, e tratamento do this.
+
+##### Sintaxe
+
+Temos alguns casos:
+
+```typescript
+
+const variavel = (param:tipo) => valor:tipo // Para lógica simples e poucas linhas 
+
+```
+
+```typescript
+
+const variavel = (param1: tipo, param2: tipo):tipo => {
+    bloco de código 
+    return valor:tipo
+    }
+
+```
+
+##### Tratamento do this
+
+O this é tratado de forma léxica, pelo contexto atual em que a arrow function é declarada. Além disso, o this da arrow function nunca muda.
 
 ### Objetos
 
