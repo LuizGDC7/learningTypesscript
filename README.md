@@ -428,12 +428,17 @@ export function somar(a:number, b:number): number{
     return a + b;
 }
 
+export default function subtrair(a:number, b:number):number{
+    return a - b;
+}
+
 ```
 
 Agora, no outro arquivo, você vai colocar entre {} o que você deseja importar do arquivo original:
 
 ```typescript
-    import {somar} from "./math"
+    import {somar} from "./math"  // Posso usar alias (as) pra trocar o nome da função
+    import subtrair from "./math" // Repare que não tenho como mudar o nome
 
     console.log(somar(10, 20));
 ```
@@ -448,17 +453,18 @@ O browser não reconhece nativamente as palavras import e export, então ele nã
 npm i -s systemjs@0.21.5
 ```
 
-##### uso
+##### Uso
 
 Dentro do index.html, inclua:
 
 ```html
-
+<script src="caminho_relavivo/node_modules/systemjs/dist/system.js">
+</script>
 <script>
     SystemJS.config({
-        baseUrl: "/pasta_raiz", // a pasta raiz dos módulos
+        baseUrl: "./pasta_raiz", // a pasta raiz dos módulos
         packages: {
-            '/pasta_raiz':{
+            './pasta_raiz':{
                 defaultJSExtension: true
             }
         }
@@ -466,7 +472,47 @@ Dentro do index.html, inclua:
 
     SystemJS.import('./pasta_raiz/arquivo1.js')
 
-<script>
+</script>
 
 
 ```
+
+#### CommonJS
+
+É o Padrão do Node. 
+No Tsconfig você vai alterar
+
+```typescript
+
+{
+    "module": "commonjs"
+}
+
+```
+
+Para usar, você vai encapsular seu arquivo com
+
+```typescript
+module.exports = {
+    funcoes
+    classe
+    etc
+}
+```
+
+No código, para usar você vai usar
+
+```typescript
+const {coisa_importada} = require('./arquivo')
+
+```
+
+### Interfaces
+
+Funcionam do mesmo jeito que em Java basicamente. Você define parâmetros e métodos que são obrigados a serem implementados na classe que implementar a interface.
+
+### Generics
+
+O mesmo de Java e C++
+
+### Decorators / Annotations

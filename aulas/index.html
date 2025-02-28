@@ -6,9 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-
     <p>Olá mundo</p>
+    
+    <script src="./node_modules/systemjs/dist/system.js"></script>
     <script src="./out/basico.js"></script>
     <script src="./out/desafio1.js"></script>
+    <script>
+        SystemJS.config({
+            baseUrl: './out/modulos',
+            packages: {
+                './out/modulos': {
+                    defaultJSExtension: true
+                }
+            }
+        })
+
+        SystemJS.import("./out/modulos/funcao2.js")
+    </script>
 </body>
 </html>
